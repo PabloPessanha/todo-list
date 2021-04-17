@@ -10,6 +10,18 @@ class App extends React.Component {
     this.addTodo = this.addTodo.bind(this);
   }
 
+  componentDidMount() {
+    const todoList = localStorage.getItem('list');
+    if (todoList) {
+      this.setState({ todos: JSON.parse(todoList) });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    const { todos } = this.state;
+    if (todos !== prevState) localStorage.setItem('list', JSON.stringify(todos));
+  }
+
   handleChange({ target }) {
     this.setState({ newTodo: target.value });
   }
