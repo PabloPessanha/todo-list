@@ -8,6 +8,7 @@ class App extends React.Component {
       todos: [],
     };
     this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +39,11 @@ class App extends React.Component {
     }
   }
 
+  removeTodo(todo) {
+    const { todos } = this.state;
+    this.setState({ todos: todos.filter((item) => item !== todo) });
+  }
+
   render() {
     const { todos, newTodo } = this.state;
     return (
@@ -45,7 +51,12 @@ class App extends React.Component {
         <input type="text" onChange={(e) => this.handleChange(e)} value={newTodo} />
         <button type="button" onClick={this.addTodo}>Adicionar tarefa</button>
         <ul>
-          {todos.map((todo) => <li key={todo}>{todo}</li>)}
+          {todos.map((todo) => (
+            <li key={todo}>
+              {todo}
+              <button type="button" onClick={() => this.removeTodo(todo)}>Remover</button>
+            </li>
+          ))}
         </ul>
       </>
     );
