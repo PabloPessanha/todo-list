@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, ButtonAdd, Title } from './styles/AppStyles';
 
 class App extends React.Component {
   constructor(props) {
@@ -48,16 +49,26 @@ class App extends React.Component {
     const { todos, newTodo } = this.state;
     return (
       <>
-        <input type="text" onChange={(e) => this.handleChange(e)} value={newTodo} />
-        <button type="button" onClick={this.addTodo}>Adicionar tarefa</button>
-        <ul>
-          {todos.map((todo) => (
-            <li key={todo}>
-              {todo}
-              <button type="button" onClick={() => this.removeTodo(todo)}>Remover</button>
-            </li>
-          ))}
-        </ul>
+        <Title>Todo application</Title>
+        <Container>
+          <input
+            placeholder="Add a new todo"
+            type="text"
+            onChange={(e) => this.handleChange(e)}
+            value={newTodo}
+          />
+          <ButtonAdd onClick={this.addTodo}>+</ButtonAdd>
+          { todos.length !== 0 && <hr />}
+          <ul>
+            {todos.map((todo) => (
+              <li key={todo}>
+                {todo}
+                <button type="button" onClick={() => this.removeTodo(todo)}>Remover</button>
+              </li>
+            ))}
+          </ul>
+        </Container>
+
       </>
     );
   }
